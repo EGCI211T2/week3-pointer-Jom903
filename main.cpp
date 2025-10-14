@@ -1,38 +1,51 @@
 #include <iostream>
 #include <iomanip>
-#define SIZE 10
-
+#include <cstdlib>
 using namespace std;
 
-int main(int argc,char *argv[]){
-  int *pa, *pb, i, temp;
-int a[SIZE] ={1,2,3,4,5,6,7,8,9,10}; 
-pa = &a[0]; //pa =a;
+  if (argc<2) {
+        cout<<"Number: "<<argv[0]<<"<n1> <n2> ..."<<endl;
+        return 1;
+    }
+
+    int n = argc - 1;
+    pa = new int[n];
+    int *start = pa;
+
+    for (i=0;i<n;i++) {
+        pa = atoi(argv[i+1]);
+        pa++;
+    }
+
+
+pa -=n;
 cout<<"Original: ";
-for (i=0; i<SIZE-1; i++ ,pa++){
-   cout<<setw(3)<<*pa ;//<<endl;
+for (i=0; i<n; i++ ,pa++){
+   cout<<setw(3)<<pa ;//<<endl;
   //cout<<pa<<endl;
 }
-cout<<setw(3)<<*pa<<endl;
+cout<<endl;
+pa-=n;
+pb=pa+(n-1);
 
-pa = &a[0];  
-pb = &a[SIZE-1];
-for (i=0; i<SIZE/2; i++)
+for (i=0; i<n/2; i++)
 {
-   temp = *pa;  
-   *pa = *pb;  
-   *pb = temp;
+   temp = *pa;
+   pa =pb;
+   pb = temp;
    pa++;  pb--;
 }
-pa=&a[0];
-pb-=SIZE/2;
+
+//pa=&a[0];
+pa=start;
 cout<<"Reversed: ";
-for (i=0; i<SIZE-1; i++ ,pa++){
-   cout<<setw(3)<<*pa ;//<<endl;
+for (i=0; i<n; i++ ,pa++){
+   cout<<setw(3)<<pa ;//<<endl;
   //cout<<pa<<endl;
 }
-cout<<setw(3)<<*pa<<endl;
+cout<<endl;
 
-
+pa=start;
+delete []pa;
 return 0;
 }
